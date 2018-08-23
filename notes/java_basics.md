@@ -1,6 +1,5 @@
-网络与线程
-
-1. Java程序建立网络通信
+### 网络与线程
+#### 1. Java程序建立网络通信
 
 Java程序使用socket进行网络通信。
 
@@ -8,21 +7,24 @@ Java程序使用socket进行网络通信。
 
 一个地址有65535个不同的端口号可以用，0~1023的TCP端口号是保留给已知的特定服务使用。
 
-Example:
-
+ex:
+```
 Socket chatSocket = new Socket("196.164.1.103", 5000);
-2. 线程
+```
+
+#### 2. 线程
 
 Java内置多线程的功能，允许同时执行的能力。
 
 启动一个新的线程的步骤：
-
-建立Runnable对象（任务）
-建立thread对象（工人）
-启动thread
+1. 建立Runnable对象（任务）
+2. 建立thread对象（工人）
+3. 启动thread
+```
 Runnable threadJob = new MyRunnable();
 Thread myThread = new Thread(threadJob);
 myThread.start()
+```
 实际上，只有真正的多处理系统能够同时执行好几件事。
 
 线程要记录的一项事物是目前线程执行空间做到哪里。
