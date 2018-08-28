@@ -32,3 +32,25 @@ myThread.start()
 Java虚拟机会在线程与原来的主线程切换知道两者都完成为止。
 
 为了避免多个线程操作同一个对象的并发性问题，要使用synchronized关键词加上一道锁。
+
+### 集合与泛型
+字符串排序功能可以用TreeSet或Collection.sort()方法
+
+然而对于泛型，不能直接用Collection.sort()。类必须实现Comparable
+
+泛型意味着更好的类型安全性。
+让编译器能够帮忙防止你把Dog加到一群Cat中
+
+泛型实现comparable接口的例子:
+```
+class Song implements Comparable<Song> {
+    String title;
+    public int compareTo(Song s) {
+        return title.compareTo(s.getTitle())
+    }
+}
+```
+调用时:
+```
+Collection.sort(songList);
+```
