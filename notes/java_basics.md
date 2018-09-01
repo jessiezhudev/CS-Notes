@@ -99,3 +99,103 @@ java -jar app1.jar
 package com.headfirstjava;
 ```
 并将源文件放在headfirstjava目录下，此目录必须在com目录下。
+
+#### 远程部署的RMI
+Java的远程程序调用(Remote Method Invocation, RMI)技术
+
+如何调用不同机器上的对象的方法？
+
+### 序列化和文件的输入/输出
+
+对象有状态和行为两种属性。行为存在于类中，而状态存在于个别的对象中。所以如何存储对象的状态（比如存储和恢复游戏的功能）？
+
+两种方式：
+1. 对每一个对象，逐个地把每项变量的值写到特定格式的文件中。（适用于数据需要被其他程序引用的场景）
+2. 用面向对象的方式 - 序列化，将被序列化的对象写到文件中，让你的程序去文件中读取序列化的对象并把它们展开。（适用于只有自己写的程序
+   会用到这些数据）
+
+序列化的文件是很难让一般人阅读的，但它比纯文本文件更容易让程序恢复这三种任务的状态，也比较安全。
+
+#### 序列化的方法步骤：
+1. 创建出FileOutputStream
+   ```
+   FileOutputStream fileStream = new FileOutputStream("MyGame.ser");
+   ```
+
+2. 创建ObjectOutputStream
+   ```
+   //它能让你写入对象
+   ObjectOutputStream os = new ObjectOutputStream(fileStream);
+   ```
+
+3. 写入对象
+    ```
+    //将变量所引用的对象序列化并写入这个文件
+    os.writeObject(characterOne);
+    os.writeObject(characterTwo);
+    os.writeObject(characterThree);
+    ```
+4. 关闭ObjectOutputStream
+   ```
+   os.close()
+   ```
+
+   FileOutputStream把字节写入文件，ObjectOutputStream把对象转换成可以写入串流的数据。
+   当我们调用ObjectOutputStream的writeObject时，对象会被打成串流送到FileOutputStream来写入
+   文件。
+
+
+如果要让类能够被序列化，就实现Serializable。该类可以实现序列化，则此类型的对象也可以实现序列化。
+（对象实现序列化必须要实现Serializable接口！）
+```
+import java.io.*;
+public class Box implements Serializable{
+
+}
+```
+
+如果某实例变量不能或不应该被序列化，就把它标记为transient（瞬时）的。
+```
+transient String currentID;
+```
+
+解序列化（Deserialization）：还原对象
+
+1. 创建FileInputStream
+   ```
+   FileInputStream fileStream = new FileInputStream("MyGame.ser");
+   ```
+2. 创建ObjectInputStream
+   ```
+   ObjectInputStream os = new ObjectInputStream(fileStream);
+   ```
+3. 读取对象
+   Object one = os.readObject();
+   Object two = os.readObject();
+   Object three = os.readObject();
+    //每次调用readObject()都会从stream中读出下一个对象，读取顺序与写入顺序相同，次数超过会抛出异常。
+
+4. 转换对象类型
+    ```
+    //返回值是Object类型，因此必须要转换类型
+    GameCharacter elf = (GameCharacter) one;
+    GameCharacter throll = (GameCharacer) two;
+    GameCharacter magician = (GameCharacer) three;
+    ```
+5. 关闭ObjectInputStream
+   ```
+   os.close();
+   ```
+
+   解序列化时，新的对象会被配置在堆上，但构造函数不会执行。这样会把对象的状态抹去又变成全新的。
+
+#### 将字符串写入文本文件
+
+写入文本数据（字符串）与写入对象类似。
+```
+FileWriter write = new FileWriter("Foo.txt");
+writer.write("hello foo!");
+writer.close();
+```
+
+
