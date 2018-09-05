@@ -111,6 +111,63 @@ Java的远程程序调用(Remote Method Invocation, RMI)技术
 
 辅助设施处理所有客户端和服务器的底层网络输入/输出细节，让客户端和程序好像在处理本地调用一样。辅助设施就是个本地代理。
 
+创建远程服务steps:
+
+1. 创建Remote接口
+   定义了客户端会调用的方法。
+   - 继承java.rmi.Remote
+   - 声明所有方法都会抛出RemoteException
+   - 确定所有参数和返回值都是primitive主数据类型或Serializable
+    ```
+    import jave.rmi.*;
+    public interface MyRemote extends Remote{
+        public String sayHello() throws RemoteException;
+    }
+    ```
+2. 实现远程接口
+   - 实现Remote这个接口
+   - 继承UnicastRemoteObject(为了让对象拥有与远程有关的功能)
+   - 编写声明RemoteException的无参数构造函数
+   - 向RMI registry注册服务
+    ```
+    import java.rmi.*;
+    import java.rmi.server.*;
+    public class MyRemoteImpl extends UnicastRemoteObject implements MyRemote{
+        public String sayHello() {
+            return "Server says, 'hey'";
+        }
+        public MyRemoteImpl() throws RemoteException{}
+        public static void main(String[] args) {
+            try{
+                MyRemote service = new MyRemoteImpl();
+                Naming.rebind("Remote Hello, service);
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+        }
+    }
+    ```
+3. 产生stub和skeleton
+    - 对实现出的类执行rmic
+    ```
+    rmic MyRemoteImpl
+    ```
+4. 执行rmiregistry
+   从可以存取到该类的目录来启动
+   ```
+   rmiregistry
+   ```
+5. 启动服务
+   ```
+   java MyRemoteImpl
+   ```
+
+Q: 客户端如何取得stub对象? A：靠RMI registry。
+
+```
+MyRemote service = (MyRemote) Naming.lookup("rmi://127.0.0.1/Remote Hello);
+String s = service.sayHello();
+```
 
 ### 序列化和文件的输入/输出
 
