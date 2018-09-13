@@ -75,6 +75,12 @@ foo.go(x);
 6. 测试方法
 7. 除错或重新设计
 
+```
+int randomNum = (int) (Math.random()*5);
+```
+其中（int）是一种“类型转换”。Math.random会返回double类型，它返回的是介于0~1之间的数字。
+此章节的练习program在java_basics_practices中。
+
 ### 网络与线程
 #### 1. Java程序建立网络通信
 
