@@ -81,6 +81,40 @@ int randomNum = (int) (Math.random()*5);
 其中（int）是一种“类型转换”。Math.random会返回double类型，它返回的是介于0~1之间的数字。
 此章节的练习program在java_basics_practices中。
 
+### Java函数库
+#### ArrayList与数组的比较
+```
+//ArrayList
+ArrayList <String> myList = new ArrayList<String>();
+Strin a = new String("whoohoo");
+myList.add(a);
+String b = new String("Frog");
+myList.add(b);
+int theSize = myList.size();
+Object o = myList.get(1);
+myList.remove(1);
+boolean isIn = myList.contains(b);
+//一般数组
+String [] myList = new String[2];
+Strin a = new String("whoohoo");
+myList[0]=a;
+String b = new String("Frog");
+myList[1]=b;
+int theSize = myList.length;
+String o = myList[1];
+myList[1] = null;
+boolean isIn = false;
+for(String item in myList) {
+    if(b.equals(item)) {
+        isIn =  true;
+        break;
+    }
+}
+```
+使用数组时，你会以特殊的数组语法来操作。这样的语法只能用在数组上。虽然
+数组也是对象，但是它有自己的规则，你无法调用它的方法，最多只能存取它的length实例变量。
+
+一般数组在创建时就必须确定大小。
 ### 网络与线程
 #### 1. Java程序建立网络通信
 
