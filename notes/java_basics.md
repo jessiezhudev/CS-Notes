@@ -379,4 +379,49 @@ writer.write("hello foo!");
 writer.close();
 ```
 
+### 关于servlet
+servlet是http web服务器上运行的java程序。
+
+创建并执行servlet的步骤：
+1. 找出网页服务器上可以存放servlet的地方
+2. 取得servlet.jar用于编译servlet并添加到classpath上
+3. 通过extend过HttpServlet来编写servlet的类
+```
+public class MyServletA extends HttpServlet {...}
+```
+4. 编写HTML来调用servlet
+```
+<a href="servlets/MyServletA">This is the most amazing servlet</a>
+```
+5. 给服务器设定HTML网页和servlet
+
+简易的servlet:
+```
+import jave.io.*;
+import java.servlet.*;
+import java.servlet.http.*;
+public class MyServletA extends HttpServlet{
+    public void doGet (HttpServlet request, HttpServletResponse response)
+    throws ServletException, IOException{
+        response.setContentType("text/html"); //告诉服务器和浏览器响应结果的形式
+        PrintWriter out = response.getWriter(); // 此对象会给我们可写回结果的输出事流
+        String message = "if you're reading this, it worked";
+        out.println("<HTML><BODY>");
+        out.println("<H1>"+message+"</H1>");
+        out.println("</BODY></HTML>");
+        out.close();
+    }
+}
+```
+servlet用来处理与用户交互的网页程序。
+
+一般的servlet是继承HttpServlet并覆盖doGet()和doPost()来创建的。
+
+##### 什么是JSP，它和servlet有什么关系？
+JSP是Java Server Pages。实际上web服务器最终会把JSP转换成servlet。servelt是让你写出带有HTML输出的类，而JSP刚好相反-你会写出带有Java程序的网页。更多可以参阅《Head First Servlets & JSP》。
+
+##### Enterprise JavaBeans
+RMI很适合编写并运行服务，但你不会单独使用RMI来执行Amazon或eBay服务。对大型的企业级应用程序来说，你需要更多更好的功能。为此你会需要enterprise application server。用术语来说，这就是Java 2 Enterprise (J2EE) 服务器。J2EE服务器包括了Web服务器和Enterprise JavaBeans(EJB)服务器。EJB服务器作用于RMI调用和服务层之间。
+    
+
 
