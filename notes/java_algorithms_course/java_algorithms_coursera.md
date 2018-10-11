@@ -12,11 +12,3 @@ Old roots, new opportunities.
 
 For fun and profit.
 
-## Union-Find
-Steps to developing a usable algorithm
--   Model the problem
--   Find an algorithm to solve
--   Fast enough? Fits in memory?
--   If not, figure out why.
--   Find a way to address the problem.
--   Iterate until satisfied.
