@@ -25,4 +25,22 @@ public class Example{
 
 额外的内存使用：排序算法的额外开销和运行时间是同等重要的。排序算法可以分为两类：除了函数调用所须的栈和固定数目的实例变量之外无需额外内存的原地排序算法，以及需要额外内存空间储存另一份数组副本的其他排序算法。
 
+在Java中，在创建自己的数据类型时，我们只要实现Comparable接口就能保证用例代码可以将其排序。要做到这一点，只需要实现一个compareTo()方法来定义目标对象的自然次序。
+
+#### 选择排序
+不断找到数组中最小的那个数，将它排在最前面。
+```
+public class Selection{
+    public static void sort(Comparable[] a) {
+        int N = a.length;
+        for (int i = 0; i <N; i++) {
+            int min = i;
+            for (int j = i+1; J<N; j++) {
+                if(less(a[j], a[min])) min = j;
+            }
+            exch(a, i, min);
+        }
+    }
+}
+```
 
