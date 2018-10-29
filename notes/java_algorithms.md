@@ -43,4 +43,17 @@ public class Selection{
     }
 }
 ```
+选择排序总共有N次交换和N2/2次比较。
+
+#### 插入排序
+```
+public class Insertion{
+    public static void sort(Comparable[] a){
+        int N = a.length;
+        for(int i=1; i<N; i++){
+            
+        }
+    }
+}
+```
 
